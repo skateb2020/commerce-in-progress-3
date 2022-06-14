@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+<h1 style = "margin-left: 1%; padding-bottom: 1%;">Categories</h1>
+    <ul>
+        <li><a href="{% url 'categories_page' 'Miscellaneous' %}" style = "color: rgb(58, 58, 58);"><h5>Miscellaneous</h5></li>
+        <li><a href="{% url 'categories_page' 'Movies and Television' %}" style = "color: rgb(58, 58, 58);"><h5>Movies and Television</h5></a></li>
+        <li><a href="{% url 'categories_page' 'Sports' %}" style = "color: rgb(58, 58, 58);"><h5>Sports</h5></a></li>
+        <li><a href="{% url 'categories_page' 'Arts and Crafts' %}" style = "color: rgb(58, 58, 58);"><h5>Arts and Crafts</h5></a></li>
+        <li><a href="{% url 'categories_page' 'Clothing' %}" style = "color: rgb(58, 58, 58);"><h5>Clothing</h5></a></li>
+        <li><a href="{% url 'categories_page' 'Books' %}" style = "color: rgb(58, 58, 58);"><h5>Books</h5></a></li>
+    </ul>   
+
+{% endblock %}

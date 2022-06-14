@@ -1,0 +1,81 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <img src ="{{ auction_listing.image }}" style = "height: 10%; width: 10%;">
+    <h4 class = "text">{{ auction_listing.title }}</h4>
+    <h6>Description: {{ auction_listing.description }}</h6>
+    <h6>Category: {{ auction_listing.category }}</h6> 
+    <h6>By: {{ auction_listing.user }}</h6>
+    <h6>Price: ${{ auction_listing.bid }}</h6>
+
+    <!--
+    {% if closeListingForm %}
+        <form action = "{% url 'listing' auction_listing.id %}" method = "POST">
+            {% csrf_token %}
+            {{ closeListingForm }}
+        </form>
+    {% endif %}
+    -->
+
+    <!--close listing code-->
+    {% if closeListing == True %}
+        <div>{{ closedMessage }}
+            <br>
+            {{ winner }} has won the auction!
+        </div>
+    {% endif %}
+
+    <form action = "{% url 'listing' auction_listing.id %}" method = "POST">
+        {% csrf_token %}
+        {% if closeListingButton == True %}
+            <input type = "submit" value = "Close Listing" name = "close">
+            <br>
+            <br>
+        {% endif %}
+
+    <!--watchlist form-->
+    <!--{% if watchlist_message %}-->
+        <div>{{ watchlist_message }}</div>
+    <!--{% endif %}-->
+
+    <form action = "{% url 'listing' auction_listing.id %}" method = "POST">
+        {% csrf_token %}
+        {% if watchlist == True %}
+            <input type="submit" value='Remove from Watchlist' name='remove'>
+        {% else %}
+            <input type="submit" value='Add to Watchlist' name='add'>
+        {% endif %}
+    </form>
+    <br>
+
+    <!--bid form-->
+    {% if message %}
+        <div style = "color: red">{{ message }}</div>
+    {% endif %}
+
+    <form action = "{% url 'listing' auction_listing.id %}" method = "POST" name = "newBid">
+        {% csrf_token %}
+        {{ bidForm }}
+        <input type = "submit" value = "Place Bid">
+    </form>
+    <br>
+
+    {% for bid in bids %}
+        <h6>${{ bid.bid }} <div style = "font-family: monospace;">Bid By: {{ bid.user }}</div></h6>
+    {% endfor %} 
+
+    <!--comment form-->
+    <br>
+    <form action = "{% url 'listing' auction_listing.id %}" method = "POST">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type = "submit" value = "Add Comment">
+    </form>
+    <br>
+
+    {% for comment in comments %}
+        <h6> {{ comment.comment }} <div style = "font-family: monospace;">Comment By: {{ comment.user }}</div></h6>
+    {% endfor %}
+{% endblock %}
